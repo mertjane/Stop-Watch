@@ -1,2 +1,2 @@
 # Stop-Watch
-STOPWATCH_JAVASCRIPT
+stop watch javascript
