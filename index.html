@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" type="image/png" href="timer_icon.png">
+    <title>Stop Watch</title>
+</head>
+
+<body>
+    <div class="component">
+        <div class="timer-component">
+            <span id="timer">00:00:00</span>
+        </div>
+        <div class="indicator-component">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+    </div>
+</body>
+<script>
+    const timerDisplay = document.getElementById('timer');
+    const startButton = document.getElementById('start');
+    const stopButton = document.getElementById('stop');
+    const resetButton = document.getElementById('reset');
+
+    let startTime;
+    let interval;
+
+    function startTimer() {
+        startTime = Date.now();
+        interval = setInterval(updateTimer, 10);
+    }
+
+    function stopTimer() {
+        clearInterval(interval);
+    }
+
+    function resetTimer() {
+        stopTimer();
+        timerDisplay.innerText = '00:00:00:000';
+    }
+
+    function updateTimer() {
+        const elapsedTime = Date.now() - startTime;
+        const hours = Math.floor(elapsedTime / 3600000);
+        const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+        const seconds = Math.floor((elapsedTime % 60000) / 1000);
+        const milliseconds = elapsedTime % 1000;
+        timerDisplay.innerText =
+        `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}:${padTime(milliseconds, 3)}`;
+    }
+
+    function padTime(time, digits = 2) {
+        return time.toString().padStart(digits, '0');
+    }
+
+    startButton.addEventListener('click', startTimer);
+    stopButton.addEventListener('click', stopTimer);
+    resetButton.addEventListener('click', resetTimer);
+</script>
+
+</html>
